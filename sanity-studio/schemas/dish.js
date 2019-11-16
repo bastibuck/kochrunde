@@ -15,7 +15,7 @@ export default {
       type: "string",
       options: {
         list: [
-          { title: "Vorspeise", value: "pre" },
+          { title: "Vorspeise", value: "starter" },
           { title: "Hauptgang", value: "main" },
           { title: "Dessert", value: "dessert" },
         ],
