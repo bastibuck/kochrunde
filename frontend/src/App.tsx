@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 // routes
-import Dishes from "./routes/Dishes";
-import Dashboard from "./routes/Dashboard";
-import { Routes } from "./routes/routes";
+import Dishes from "routes/Dishes";
+import Dashboard from "routes/Dashboard";
+import { Routes } from "routes/routes";
 
 const App: React.FC = () => {
   return (
