@@ -11,7 +11,7 @@ import { Loader } from "../components/Loader";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
-  const { data: events } = useQuery<EventsResult, unknown, EventsResult>(
+  const { data: events } = useQuery<EventsResult>(
     "events",
     () => fetch("/api/events").then((res) => res.json()),
     {
