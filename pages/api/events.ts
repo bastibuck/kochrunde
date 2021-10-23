@@ -26,5 +26,7 @@ export default async function handler(
 
   const events = await client.fetch<EventsResult>(query);
 
+  await new Promise((r) => setTimeout(r, 5000));
+
   res.status(200).json(events);
 }

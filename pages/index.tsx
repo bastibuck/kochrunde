@@ -1,25 +1,24 @@
 import type { NextPage } from "next";
+import { useQuery } from "react-query";
 
 import Head from "next/head";
 import Link from "next/link";
 
-import styles from "../styles/Home.module.css";
 import type { EventsResult } from "./api/events";
 
-const events: EventsResult = [
-  {
-    _id: "abad0e68-eb6a-4715-a6d9-1eaa17345e92",
-    cook: { name: "Basti" },
-    date: "2021-10-23T19:10:14.610Z",
-  },
-  {
-    _id: "5c356240-0e08-4b7a-9f1b-8b0d0250be0a",
-    cook: { name: "Luisa" },
-    date: "2021-10-19T19:26:00.000Z",
-  },
-];
+import { Loader } from "../components/Loader";
+
+import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+  const { data: events } = useQuery<EventsResult, unknown, EventsResult>(
+    "events",
+    () => fetch("/api/events").then((res) => res.json()),
+    {
+      initialData: [],
+    }
+  );
+
   return (
     <div className={styles.container}>
       <Head>
@@ -39,14 +38,18 @@ const Home: NextPage = () => {
         </p>
 
         <div className={styles.grid}>
-          {events.map((event) => (
-            <Link href={`/event/${event._id}`} key={event._id}>
-              <a className={styles.card}>
-                <h2>{new Date(event.date).toLocaleDateString()} &rarr;</h2>
-                <p>{event.cook.name}</p>
-              </a>
-            </Link>
-          ))}
+          {events === undefined || events.length === 0 ? (
+            <Loader />
+          ) : (
+            events.map((event) => (
+              <Link href={`/event/${event._id}`} key={event._id}>
+                <a className={styles.card}>
+                  <h2>{new Date(event.date).toLocaleDateString()} &rarr;</h2>
+                  <p>{event.cook.name}</p>
+                </a>
+              </Link>
+            ))
+          )}
         </div>
       </main>
     </div>
