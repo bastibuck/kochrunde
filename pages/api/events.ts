@@ -1,11 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import sanityClient from "@sanity/client";
 
-import type { Event } from "../../types/event";
+import type { Cook } from "../../types/cook";
+
+export type EventsResult = {
+  _id: string;
+  date: string;
+  cook: Cook;
+}[];
 
 export default async function handler(
   _req: NextApiRequest,
-  res: NextApiResponse<Event[]>
+  res: NextApiResponse<EventsResult>
 ) {
   const client = sanityClient({
     projectId: process.env.SANITY_PROJECT_ID,
@@ -16,9 +22,9 @@ export default async function handler(
   });
 
   const query =
-    '*[_type == "event"]{"cook":cook->{name},"dishes":dishes[]->{name,course,"image":image.asset->url,recipe},date} | order(date desc)';
+    '*[_type == "event"]{_id,"cook":cook->{name},date} | order(date desc)';
 
-  const events = await client.fetch<Event[]>(query);
+  const events = await client.fetch<EventsResult>(query);
 
   res.status(200).json(events);
 }
