@@ -1,24 +1,13 @@
-import type { NextPage } from "next";
-import { useQuery } from "react-query";
-
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import type { EventsResult } from "./api/events";
-
-import { Loader } from "../components/Loader";
+import { eventsQuery, EventsResult } from "../queries/event";
+import { client } from "../queries/client";
 
 import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
-  const { data: events } = useQuery<EventsResult>(
-    "events",
-    () => fetch("/api/events").then((res) => res.json()),
-    {
-      initialData: [],
-    }
-  );
-
+const Home = ({ events }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -38,8 +27,8 @@ const Home: NextPage = () => {
         </p>
 
         <div className={styles.grid}>
-          {events === undefined || events.length === 0 ? (
-            <Loader />
+          {events.length === 0 ? (
+            <div>Bisher keine Events...</div>
           ) : (
             events.map((event) => (
               <Link href={`/event/${event._id}`} key={event._id}>
@@ -57,3 +46,15 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getStaticProps: GetStaticProps<{ events: EventsResult }> = async (
+  _context
+) => {
+  const events = await client.fetch<EventsResult>(eventsQuery);
+
+  return {
+    props: {
+      events,
+    },
+  };
+};
