@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 
 import {
   eventQuery,
@@ -15,6 +16,12 @@ import { client } from "../../queries/client";
 import styles from "../../styles/Home.module.css";
 import { Loader } from "../../components/Loader";
 
+const variants = {
+  hidden: { x: "100%", width: "100%" },
+  enter: { x: 0, width: "100%" },
+  exit: { x: "100%", width: "100%" },
+};
+
 const EventDetails = ({
   event,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -25,7 +32,13 @@ const EventDetails = ({
   }
 
   return (
-    <div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      variants={variants}
+    >
       <Head>
         <title>Event-Details | Kochrunde App</title>
         <meta name="description" content="Event-Details" />
@@ -83,7 +96,7 @@ const EventDetails = ({
           ))}
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 };
 

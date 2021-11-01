@@ -1,15 +1,28 @@
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 import { eventsQuery, EventsResult } from "../queries/event";
 import { client } from "../queries/client";
 
 import styles from "../styles/Home.module.css";
 
+const variants = {
+  hidden: { x: "-100%" },
+  enter: { x: 0 },
+  exit: { x: "-100%" },
+};
+
 const Home = ({ events }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      variants={variants}
+    >
       <Head>
         <title>Kochrunde</title>
         <meta
@@ -41,7 +54,7 @@ const Home = ({ events }: InferGetStaticPropsType<typeof getStaticProps>) => {
           )}
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 };
 
