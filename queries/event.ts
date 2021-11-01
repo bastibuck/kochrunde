@@ -18,8 +18,8 @@ export type EventResult = {
     course: "starter" | "main" | "dessert";
     name: string;
     image: string | null; // URL
-    recipe: string | null;
+    recipes: string[];
   }[];
 };
 export const eventQuery =
-  '*[_type == "event" && _id==$id]{_id,"cook":cook->{name},"dishes":coalesce(dishes[]->{name,course,"image":image.asset->url,recipe}, []),date}[0]';
+  '*[_type == "event" && _id==$id]{_id,"cook":cook->{name},"dishes":coalesce(dishes[]->{name,course,"image":image.asset->url,"recipes":coalesce(recipes,[])}, []),date}[0]';

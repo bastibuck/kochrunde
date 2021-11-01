@@ -29,9 +29,10 @@ const dish = {
       type: "image",
     },
     {
-      title: "Rezept",
-      name: "recipe",
-      type: "url",
+      title: "Rezepte",
+      name: "recipes",
+      type: "array",
+      of: [{ type: "url" }],
     },
   ],
 };

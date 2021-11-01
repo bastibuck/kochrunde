@@ -68,11 +68,17 @@ const EventDetails = ({
                 </div>
               )}
 
-              {dish.recipe && (
-                <a target="_blank" rel="noreferrer" href={dish.recipe}>
-                  Rezept
+              {dish.recipes.map((recipe, index) => (
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={recipe}
+                  key={recipe}
+                  style={{ display: "block", marginBottom: 10 }}
+                >
+                  Rezept {dish.recipes.length > 1 ? `#${index}` : ""}
                 </a>
-              )}
+              ))}
             </div>
           ))}
         </div>
