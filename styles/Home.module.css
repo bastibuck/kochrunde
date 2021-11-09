@@ -119,3 +119,13 @@
     flex-direction: column;
   }
 }
+
+.aspect16_9 {
+  aspect-ratio: 16 / 9;
+}
+
+@supports not (aspect-ratio: 1 / 1) {
+  .aspect16_9 {
+    padding-top: 56.25%;
+  }
+}

@@ -55,9 +55,9 @@ const EventDetails = ({
                 <div
                   style={{
                     position: "relative",
-                    aspectRatio: "16 / 9",
                     marginBottom: 20,
                   }}
+                  className={styles.aspect16_9}
                 >
                   <Image
                     src={dish.image}
