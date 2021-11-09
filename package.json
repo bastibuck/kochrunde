@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "cd sanity-studio && sanity build ../public/studio -y && cd .. && next build",
+    "build": "cd sanity-studio && yarn build ../public/studio -y && cd .. && next build",
     "start": "next start",
     "lint": "next lint"
   },

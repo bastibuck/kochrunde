@@ -12,6 +12,10 @@ node_modules
 /.next/
 /out/
 
+# sanity
+sanity-studio/dist
+public/studio
+
 # production
 /build
 
