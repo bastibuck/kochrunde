@@ -22,4 +22,4 @@ export type EventResult = {
   }[];
 };
 export const eventQuery =
-  '*[_type == "event" && _id==$id]{_id,"cook":cook->{name},"dishes":coalesce(dishes[]->{name,course,"image":image.asset->url,"recipes":coalesce(recipes,[])}, []),date}[0]';
+  '*[_type == "event" && _id==$id]{_id,"cook":cook->{name},"dishes":coalesce(dishes[]->{name,course,"image":image.asset->url,"recipes":coalesce(recipes,[]),  "tags": coalesce(tags[]->name,[])}, []),date}[0]';

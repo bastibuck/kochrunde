@@ -24,6 +24,15 @@ const dish = {
       validation: (Rule) => Rule.required(),
     },
     {
+      title: "Vegetarisch",
+      name: "veggie",
+      type: "boolean",
+      initialValue: false,
+      options: {
+        layout: "checkbox",
+      },
+    },
+    {
       title: "Foto",
       name: "image",
       type: "image",
@@ -33,6 +42,21 @@ const dish = {
       name: "recipes",
       type: "array",
       of: [{ type: "url" }],
+    },
+    {
+      title: "Tags",
+      name: "tags",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "tag" }],
+        },
+      ],
+      options: {
+        sortable: false,
+      },
+      validation: (Rule) => Rule.unique().required(),
     },
   ],
 };

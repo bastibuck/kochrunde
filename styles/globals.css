@@ -6,6 +6,10 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -28,6 +32,15 @@ a {
   transform: translateZ(0);
   animation: load6 1.7s infinite ease, round 1.7s infinite ease;
 }
+
+.loader--inline {
+  margin: 0;
+  position: absolute;
+  right: 16px;
+  top: 13px;
+  font-size: 0.8rem;
+}
+
 @-webkit-keyframes load6 {
   0% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
