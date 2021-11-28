@@ -11,6 +11,7 @@ export type PageProps = {
   title: string;
   description?: string;
   backLink?: string;
+  hideNav?: boolean;
 };
 
 type AppProps = {
@@ -38,6 +39,18 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>{pageProps.title}</h1>
+
+        {!pageProps.hideNav ? (
+          <nav className={styles.nav}>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+
+            <Link href="/search">
+              <a>Suche</a>
+            </Link>
+          </nav>
+        ) : null}
 
         {pageProps.description ? (
           <p className={styles.description}>{pageProps.description}</p>

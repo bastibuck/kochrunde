@@ -47,6 +47,7 @@
   margin: 0;
   line-height: 1.15;
   font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
 .title,
@@ -128,4 +129,24 @@
   .aspect16_9 {
     padding-top: 56.25%;
   }
+}
+
+.aspect1_1 {
+  aspect-ratio: 1;
+}
+
+@supports not (aspect-ratio: 1 / 1) {
+  .aspect1_1 {
+    padding-top: 100%;
+  }
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: underline;
 }

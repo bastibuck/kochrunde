@@ -88,6 +88,7 @@ export const getStaticProps: GetStaticProps<
       backLink: "/",
       title: new Date(event.date).toLocaleDateString(),
       description: event.cook.name,
+      hideNav: true,
 
       event,
     },
