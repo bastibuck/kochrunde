@@ -1,6 +1,7 @@
 import type { AppProps as NextAppProps } from "next/app";
 import Head from "next/head";
 import Link from "next/link";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import "../styles/globals.css";
 import styles from "../styles/Home.module.css";
@@ -19,6 +20,8 @@ type AppProps = {
 } & Omit<NextAppProps<PageProps>, "pageProps">;
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const queryClient = new QueryClient();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -56,7 +59,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           <p className={styles.description}>{pageProps.description}</p>
         ) : null}
 
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
       </main>
     </div>
   );
