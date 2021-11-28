@@ -6,7 +6,7 @@ const dishesHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<DishesResult>
 ) => {
-  const dishes = await client.fetch(dishesQuery, {
+  const dishes = await client.fetch<DishesResult>(dishesQuery, {
     search: req.query.search || "",
   });
 
