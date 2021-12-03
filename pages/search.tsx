@@ -64,7 +64,7 @@ const Search = () => {
             </div>
 
             <div style={{ width: 200 }}>
-              {dish.image ? (
+              {dish.image && dish.imageBlurred ? (
                 <div
                   style={{
                     position: "relative",
@@ -76,6 +76,8 @@ const Search = () => {
                     alt={`Foto vom Gericht ${dish.name}`}
                     layout="fill"
                     objectFit="cover"
+                    placeholder="blur"
+                    blurDataURL={dish.imageBlurred}
                   />
                 </div>
               ) : (
