@@ -18,8 +18,24 @@ export type EventResult = {
     course: "starter" | "main" | "dessert";
     name: string;
     image: string | null; // URL
+    imageBlurred: string | null; // base64 dataUrl
     recipes: string[];
   }[];
 };
-export const eventQuery =
-  '*[_type == "event" && _id==$id]{_id,"cook":cook->{name},"dishes":coalesce(dishes[]->{name,course,"image":image.asset->url,"recipes":coalesce(recipes,[]),  "tags": coalesce(tags[]->name,[])}, []),date}[0]';
+export const eventQuery = `
+  *[
+    _type == "event" && _id==$id
+  ] {
+    _id,
+    "cook": cook->{name},
+    date,
+    "dishes": coalesce(dishes[]->{
+      name,
+      course,
+      "image": image.asset->url,
+      "imageBlurred": image.asset->metadata.lqip,
+      "recipes": coalesce(recipes, []),
+      "tags": coalesce(tags[]->name, [])},
+    []),
+  }[0]
+`;

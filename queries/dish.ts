@@ -3,6 +3,7 @@ export type DishesResult = {
   name: string;
   course: "starter" | "main" | "dessert";
   image: string | null;
+  imageBlurred: string | null;
   recipes: string[];
   tags: string[];
   veggie: boolean;
@@ -15,12 +16,13 @@ export const dishesQuery = `
         tags[]->name                        match "*"+$search+"*" ||
         (tags[]->synonym[])[defined(@)]     match "*"+$search+"*"
     )
-]  {
+] {
   _id,
   name,
   course,
-  "image":image.asset->url,
-  "recipes":coalesce(recipes,[]),
+  "image": image.asset->url,
+  "imageBlurred": image.asset->metadata.lqip,
+  "recipes": coalesce(recipes,[]),
   "tags": coalesce(tags[]->name,[]),
   veggie,
 }

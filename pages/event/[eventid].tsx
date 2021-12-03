@@ -29,7 +29,7 @@ const EventDetails = ({
         <div className={styles.card} key={dish.name}>
           <h2>{dish.name}</h2>
 
-          {dish.image && (
+          {dish.image && dish.imageBlurred && (
             <div
               style={{
                 position: "relative",
@@ -42,6 +42,8 @@ const EventDetails = ({
                 alt={`Foto vom Gericht ${dish.name}`}
                 layout="fill"
                 objectFit="cover"
+                placeholder="blur"
+                blurDataURL={dish.imageBlurred}
               />
             </div>
           )}
