@@ -58,6 +58,13 @@ const dish = {
       },
       validation: (Rule) => Rule.unique().required(),
     },
+    {
+      title: "Rating",
+      name: "rating",
+      type: "array",
+      of: [{ type: "number" }],
+      readOnly: true,
+    },
   ],
 };
 

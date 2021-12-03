@@ -6,6 +6,7 @@ export type DishesResult = {
   imageBlurred: string | null;
   recipes: string[];
   tags: string[];
+  rating: number[];
   veggie: boolean;
 }[];
 export const dishesQuery = `
@@ -24,6 +25,20 @@ export const dishesQuery = `
   "imageBlurred": image.asset->metadata.lqip,
   "recipes": coalesce(recipes,[]),
   "tags": coalesce(tags[]->name,[]),
+  "rating": coalesce(rating, []),
   veggie,
 }
+`;
+
+export type DishRatingResult = {
+  _id: string;
+  rating: number[];
+};
+export const dishRatingQuery = `
+  *[
+    _type == "dish" && _id==$id
+  ] {
+    _id,
+    "rating": coalesce(rating, []),    
+  }[0]
 `;
