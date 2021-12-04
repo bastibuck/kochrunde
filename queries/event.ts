@@ -15,11 +15,13 @@ export type EventResult = {
     name: string;
   };
   dishes: {
+    _id: string;
     course: "starter" | "main" | "dessert";
     name: string;
     image: string | null; // URL
     imageBlurred: string | null; // base64 dataUrl
     recipes: string[];
+    rating: number[];
   }[];
 };
 export const eventQuery = `
@@ -30,12 +32,15 @@ export const eventQuery = `
     "cook": cook->{name},
     date,
     "dishes": coalesce(dishes[]->{
+      _id,
       name,
-      course,
+      course,      
       "image": image.asset->url,
       "imageBlurred": image.asset->metadata.lqip,
       "recipes": coalesce(recipes, []),
-      "tags": coalesce(tags[]->name, [])},
+      "tags": coalesce(tags[]->name, []),
+      "rating": coalesce(rating, []),
+    },
     []),
   }[0]
 `;
