@@ -2,7 +2,7 @@ import { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "react-query";
-import { Rating } from "react-simple-star-rating";
+import StarRatingComponent from "react-star-rating-component";
 import { useCookie } from "react-use";
 
 import {
@@ -32,11 +32,10 @@ const DishRating: React.FC<{ id: string }> = ({ id }) => {
 
   const handleRating = async (rate: number) => {
     if (voted === null) {
-      const rating = ((rate / 100) * 5).toString();
-      const res = await mutateRating.mutateAsync(rating);
+      const res = await mutateRating.mutateAsync(rate.toString());
 
       if (res.status === 200) {
-        updateCookie(rating, { expires: 365 * 10 });
+        updateCookie(rate.toString(), { expires: 365 * 10 });
       }
     }
   };
@@ -45,18 +44,18 @@ const DishRating: React.FC<{ id: string }> = ({ id }) => {
     <div style={{ textAlign: "right", minHeight: 45 }}>
       {!query.isLoading && !query.isIdle && !query.isError ? (
         <>
-          <Rating
-            transition
-            allowHalfIcon
-            onClick={handleRating}
-            readonly={voted !== null}
-            ratingValue={
+          <StarRatingComponent
+            name={"rating"}
+            value={
               query.data.rating.length
                 ? query.data.rating.reduce((acc, rate) => acc + rate, 0) /
                   query.data.rating.length
                 : 0
             }
+            onStarClick={handleRating}
+            editing={voted === null}
           />
+
           {voted !== null ? <div>Dein Vote: {voted}</div> : null}
         </>
       ) : null}

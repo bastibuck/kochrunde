@@ -123,3 +123,7 @@ a {
     transform: rotate(360deg);
   }
 }
+
+.dv-star-rating i {
+  font-size: 24px;
+}
