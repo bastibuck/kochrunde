@@ -4,9 +4,16 @@ export type EventsResult = {
   cook: {
     name: string;
   };
+  hasDishes: boolean;
 }[];
-export const eventsQuery =
-  '*[_type == "event" && !(_id in path("drafts.**"))]{_id,"cook":cook->{name},date} | order(date desc)';
+export const eventsQuery = `
+    *[_type == "event" && !(_id in path("drafts.**"))] {
+      _id,
+      "cook":cook->{name},
+      date,
+      "hasDishes": count(coalesce(dishes[],[])) > 0
+    } | order(date desc)
+  `;
 
 export type EventResult = {
   _id: string;

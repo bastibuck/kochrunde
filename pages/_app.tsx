@@ -52,6 +52,10 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Link href="/search">
               <a>Suche</a>
             </Link>
+
+            <Link href="/next">
+              <a>Wer ist noch dran?</a>
+            </Link>
           </nav>
         ) : null}
 

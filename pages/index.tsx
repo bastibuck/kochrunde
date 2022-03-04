@@ -13,14 +13,21 @@ const Home = ({ events }: InferGetStaticPropsType<typeof getStaticProps>) => {
       {events.length === 0 ? (
         <div>Bisher keine Events...</div>
       ) : (
-        events.map((event) => (
-          <Link href={`/event/${event._id}`} key={event._id}>
-            <a className={styles.card}>
-              <h2>{new Date(event.date).toLocaleDateString()} &rarr;</h2>
+        events.map((event) =>
+          event.hasDishes ? (
+            <Link href={`/event/${event._id}`} key={event._id}>
+              <a className={styles.card}>
+                <h2>{new Date(event.date).toLocaleDateString()} &rarr;</h2>
+                <p>{event.cook.name}</p>
+              </a>
+            </Link>
+          ) : (
+            <div className={styles.card} key={event._id}>
+              <h2>{new Date(event.date).toLocaleDateString()}</h2>
               <p>{event.cook.name}</p>
-            </a>
-          </Link>
-        ))
+            </div>
+          )
+        )
       )}
     </div>
   );

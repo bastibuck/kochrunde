@@ -9,6 +9,13 @@ const cook = {
       type: "string",
       validation: (Rule) => Rule.required(),
     },
+    {
+      title: "Korrektur",
+      name: "startCount",
+      type: "number",
+      validation: (Rule) => Rule.required().positive().integer(),
+      initialValue: 0,
+    },
   ],
 };
 
