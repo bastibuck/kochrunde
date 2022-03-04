@@ -8,14 +8,14 @@ export const upcomingCooksQuery = `
     select(
         count(
             *[_type == "cook" && 
-            *[_type == "cook"] {"eventCount": count(*[_type == 'event' && references(^._id)])} | order(eventCount desc)[0].eventCount > 
-                count(*[_type == 'event' && references(^._id)]) + startCount
+            *[_type == "cook"] {"eventCount": count(*[_type == 'event' && !(_id in path("drafts.**")) && references(^._id)])} | order(eventCount desc)[0].eventCount > 
+                count(*[_type == 'event' && !(_id in path("drafts.**")) && references(^._id)]) + startCount
             ] {
             _id
         }) > 0 => *[
             _type == "cook" && 
-            *[_type == "cook"] {"eventCount": count(*[_type == 'event' && references(^._id)])} | order(eventCount desc)[0].eventCount > 
-                count(*[_type == 'event' && references(^._id)]) + startCount
+            *[_type == "cook"] {"eventCount": count(*[_type == 'event' && !(_id in path("drafts.**")) && references(^._id)])} | order(eventCount desc)[0].eventCount > 
+                count(*[_type == 'event' && !(_id in path("drafts.**")) && references(^._id)]) + startCount
         ] {
             _id,
             name
