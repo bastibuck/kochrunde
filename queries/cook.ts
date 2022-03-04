@@ -3,7 +3,7 @@ export type UpcomingCooksResult = {
   name: string;
 }[];
 
-// TODO? can this query by optimised as we query the samw thing twice?
+// TODO? can this query by optimised as we query the same thing twice?
 export const upcomingCooksQuery = `
     select(
         count(
