@@ -12,7 +12,7 @@ export const maxEventsCount = `
   `;
 
 export const upcomingCooksQuery = `
-    *[_type == "cook" && $maxCount >= count(*[_type == 'event' && !(_id in path("drafts.**")) && references(^._id)]) + startCount] {
+    *[_type == "cook" && count(*[_type == 'event' && !(_id in path("drafts.**")) && references(^._id)]) + startCount < $maxCount ] {
         _id,
         name
     } | order(name)
