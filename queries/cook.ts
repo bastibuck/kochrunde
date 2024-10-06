@@ -3,17 +3,23 @@ export type UpcomingCooksResult = {
   name: string;
 }[];
 
-export const maxEventsCount = `
-    *[_type == "cook"] {
-          "maxCount": *[_type == "cook"] {
-            "eventCount": count(*[_type == 'event' && !(_id in path("drafts.**")) && references(^._id)])
-          } | order(eventCount desc)[0].eventCount,
-    } | order(maxCount desc)[0].maxCount
-  `;
-
 export const upcomingCooksQuery = `
-    *[_type == "cook" && count(*[_type == 'event' && !(_id in path("drafts.**")) && references(^._id)]) + startCount < $maxCount ] {
-        _id,
-        name
-    } | order(name)
+    { 
+  "cooks": *[_type == "cook"] { 
+  _id,
+  name, 
+  startCount, 
+  "eventCount": count(*[_type == 'event' && !(_id in path("drafts.**")) && references(^._id)]) 
+} | { 
+  ..., 
+  "totalEventCount": startCount + eventCount 
+} | order(eventCount desc)} | { 
+  ..., 
+  "highestEventCount": cooks[0].totalEventCount 
+} | { 
+  "filtered": cooks[totalEventCount < ^.highestEventCount] {
+  _id, 
+  name
+} 
+}.filtered | order(name)
 `;

@@ -2,11 +2,7 @@ import React from "react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
 import type { PageProps } from "./_app";
-import {
-  maxEventsCount,
-  upcomingCooksQuery,
-  UpcomingCooksResult,
-} from "../queries/cook";
+import { upcomingCooksQuery, UpcomingCooksResult } from "../queries/cook";
 import { client } from "../queries/client";
 
 import styles from "../styles/Home.module.css";
@@ -28,10 +24,7 @@ export default Next;
 export const getStaticProps: GetStaticProps<
   PageProps & { upcoming: UpcomingCooksResult }
 > = async (_context) => {
-  const maxCount = await client.fetch<number>(maxEventsCount);
-  const upcoming = await client.fetch<UpcomingCooksResult>(upcomingCooksQuery, {
-    maxCount,
-  });
+  const upcoming = await client.fetch<UpcomingCooksResult>(upcomingCooksQuery);
 
   return {
     props: {
